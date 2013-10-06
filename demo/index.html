@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ngXForms Demo">
+    <meta name="author" content="Robert Kovacevic <robert.kovacevic1@gmail.com>">
+
+    <title>ngXForms Demo</title>
+
+    <!-- JQuery -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
+
+    <!-- Twitter Bootstrap -->
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+    <!-- X-Editable -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/js/bootstrap-editable.js"></script>
+
+    <link href="style/demo.css" rel="stylesheet">
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="controller.js"></script>
+
+    <script type="text/javascript" src="lib/ngxforms.js"></script>
+  </head>
+
+  <body ng-app="demo">
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">ngXForms demo</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="mailto:robert.kovacevic1@gmail.com">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container" ng-controller="DemoCtrl">
+
+      <div>
+        <h1>Example form</h1>
+        
+        <button class="btn" ng-click="inplaceMode = !inplaceMode">Inplace mode: {{inplaceMode}}</button>
+        <button class="btn" ng-click="disabled = !disabled">Disabled: {{disabled}}</button>
+        
+        <hr>
+        
+        <form class="form-horizontal" 
+          ng-x-form 
+          inplace-mode="{{inplaceMode}}" 
+          editable="{{!disabled}}"
+          on-submit="saveChanges(property, successCallback, errorCallback)">
+
+          <div class="control-group">
+            <label class="control-label">First name:</label>
+            <div class="controls">
+              <ng-x-input ng-model="fighter.firstName"></ng-x-input>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Last name:</label>
+            <div class="controls">
+              <ng-x-input ng-model="fighter.lastName"></ng-x-input>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label">Height:</label>
+            <div class="controls">
+              <div ng-class="{inplaceMode: input-append}">
+                <ng-x-input ng-model="fighter.heightInCm" suffix='inches'></ng-x-input>
+                <span class="add-on" ng-show="!inplaceMode">inches</span>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="alert alert-info">
+          <h4>Simulated server state:</h4>
+          {{fighter}}
+          <hr>
+          <button class="btn" ng-click="setFighterAli()">Set to Ali</button>
+          <button class="btn" ng-click="setFighterTyson()">Set to Tyson</button>
+        </div>
+        
+      </div>
+
+
+
+    </div><!-- /.container -->
+
+  </body>
+</html>
